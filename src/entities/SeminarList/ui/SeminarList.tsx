@@ -8,9 +8,9 @@ interface ListProps {
     setIsOpenDelModal: (arg: boolean) => void;
     setEditModalOpen: (arg: boolean) => void;
     setItemToDelete: (id: SeminarId) => void;
-    // handleEdit: (item: SeminarType) => void;
     setItemToEdit: (item: SeminarType) => void;
     setNeedToRerender: (arg: boolean) => void;
+    setIsLoading: (arg: boolean) => void;
     needToRerender: boolean;
 }
 
@@ -21,9 +21,11 @@ export const SeminarList = (props: ListProps) => {
         setItemToEdit,
         setNeedToRerender,
         needToRerender,
-        setEditModalOpen
+        setEditModalOpen,
+        setIsLoading
     } = props;
     const [list, setList] = useState<SeminarType[]>([]);
+
 
     const handleDeleteClick = useCallback((id: SeminarId) => {
         setItemToDelete(id);
@@ -36,6 +38,7 @@ export const SeminarList = (props: ListProps) => {
     }, [setItemToDelete, setEditModalOpen]);
 
     useEffect(() => {
+        setIsLoading(true);
         const fetchData = async () => {
             try {
                 const seminars = await getSeminars();
@@ -44,7 +47,7 @@ export const SeminarList = (props: ListProps) => {
                 console.error("Error fetching seminars:", error);
             }
         };
-        fetchData().then(() => setNeedToRerender(false));
+        fetchData().then(() => setNeedToRerender(false)).then(() => setIsLoading(false));
     }, [needToRerender]);
 
     return (

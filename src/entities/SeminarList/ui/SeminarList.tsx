@@ -52,7 +52,7 @@ export const SeminarList = (props: ListProps) => {
 
     return (
         <>
-            {list.length ? <List
+            {list.length && !needToRerender ? <List
                 list={list}
                 cardTemplate={(item) => <SeminarCard
                     handleEditClick={handleEditClick}

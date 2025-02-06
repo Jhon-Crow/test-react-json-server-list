@@ -2,14 +2,15 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import {SeminarType} from "../../SeminarList/api/types.ts";
+import {SeminarId, SeminarType} from "../../SeminarList/api/types.ts";
 import {DelButton} from "../../../features/DelButton/ui/DelButton.tsx";
 
 interface SeminarCardProps {
     item: SeminarType;
+    handleDeleteClick: (id: SeminarId) => void;
 }
 
-export const SeminarCard = ({item}: SeminarCardProps) => {
+export const SeminarCard = ({item, handleDeleteClick}: SeminarCardProps) => {
     return (
         <Card variant="outlined" sx={{ maxWidth: 345, margin: 2 }}>
             <CardMedia
@@ -31,7 +32,8 @@ export const SeminarCard = ({item}: SeminarCardProps) => {
                 <Typography variant="body2" color="text.secondary">
                     Время: {item.time}
                 </Typography>
-                <DelButton/>
+                <DelButton handleDeleteClick={handleDeleteClick} id={item.id}/>
+
             </CardContent>
         </Card>
     );

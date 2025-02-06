@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 
 interface ModalProps {
-    header?: string;
+    header: string;
     isOpen: boolean;
     setIsOpen: (arg: boolean) => void;
     onAcceptCallback: () => void;

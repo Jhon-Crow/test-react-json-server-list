@@ -50,7 +50,7 @@ export async function deleteSeminar(id: SeminarId) {
         await fetch(`http://localhost:3000/seminars/${id}`, {
             method: 'DELETE'
         });
-        console.log('Deleted');
+        console.log('Deleted ', id);
     } catch (error) {
         console.error('Error:', error);
     }

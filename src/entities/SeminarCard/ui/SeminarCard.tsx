@@ -2,15 +2,18 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
 import {SeminarId, SeminarType} from "../../SeminarList/api/types.ts";
 import {DelButton} from "../../../features/DelButton/ui/DelButton.tsx";
+import {EditButton} from "../../../features/EditButton/ui/EditButton.tsx";
 
 interface SeminarCardProps {
     item: SeminarType;
-    handleDeleteClick: (id: SeminarId) => void;
+    handleDeleteClick?: (id: SeminarId) => void;
+    handleEditClick?: (item: SeminarType) => void;
 }
 
-export const SeminarCard = ({item, handleDeleteClick}: SeminarCardProps) => {
+export const SeminarCard = ({item, handleDeleteClick, handleEditClick}: SeminarCardProps) => {
     return (
         <Card variant="outlined" sx={{ maxWidth: 345, margin: 2 }}>
             <CardMedia
@@ -20,6 +23,9 @@ export const SeminarCard = ({item, handleDeleteClick}: SeminarCardProps) => {
                 alt={item.title}
             />
             <CardContent>
+                {handleEditClick ? null : <Typography variant="body2" color="text.secondary">
+                    {item.photo}
+                </Typography>}
                 <Typography variant="h5" component="div">
                     {item.title}
                 </Typography>
@@ -32,8 +38,10 @@ export const SeminarCard = ({item, handleDeleteClick}: SeminarCardProps) => {
                 <Typography variant="body2" color="text.secondary">
                     Время: {item.time}
                 </Typography>
-                <DelButton handleDeleteClick={handleDeleteClick} id={item.id}/>
-
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 4 }}>
+                    {handleEditClick && <EditButton item={item} handleEdit={handleEditClick}/>}
+                    {handleDeleteClick && <DelButton handleDeleteClick={handleDeleteClick} id={item.id}/>}
+                </Box>
             </CardContent>
         </Card>
     );

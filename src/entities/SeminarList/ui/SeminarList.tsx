@@ -5,20 +5,35 @@ import {SeminarId, SeminarType} from "../api/types.ts";
 import {SeminarCard} from "../../SeminarCard/ui/SeminarCard.tsx";
 
 interface ListProps {
-    setIsOpenModal: (arg: boolean) => void;
+    setIsOpenDelModal: (arg: boolean) => void;
+    setEditModalOpen: (arg: boolean) => void;
     setItemToDelete: (id: SeminarId) => void;
+    // handleEdit: (item: SeminarType) => void;
+    setItemToEdit: (item: SeminarType) => void;
     setNeedToRerender: (arg: boolean) => void;
     needToRerender: boolean;
 }
 
 export const SeminarList = (props: ListProps) => {
-    const { setIsOpenModal, setItemToDelete, setNeedToRerender, needToRerender } = props;
+    const {
+        setIsOpenDelModal,
+        setItemToDelete,
+        setItemToEdit,
+        setNeedToRerender,
+        needToRerender,
+        setEditModalOpen
+    } = props;
     const [list, setList] = useState<SeminarType[]>([]);
 
     const handleDeleteClick = useCallback((id: SeminarId) => {
         setItemToDelete(id);
-        setIsOpenModal(true);
-    }, [setItemToDelete, setIsOpenModal]);
+        setIsOpenDelModal(true);
+    }, [setItemToDelete, setIsOpenDelModal]);
+
+    const handleEditClick = useCallback((item: SeminarType) => {
+        setItemToEdit(item);
+        setEditModalOpen(true);
+    }, [setItemToDelete, setEditModalOpen]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,7 +51,11 @@ export const SeminarList = (props: ListProps) => {
         <>
             {list.length ? <List
                 list={list}
-                cardTemplate={(item) => <SeminarCard handleDeleteClick={handleDeleteClick} item={item}/>}
+                cardTemplate={(item) => <SeminarCard
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                    item={item}
+                />}
             /> : "Нет семинаров"}
         </>
     );

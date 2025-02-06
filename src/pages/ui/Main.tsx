@@ -4,6 +4,7 @@ export const Main = () => {
     return (
         <main>
             <SeminarList/>
+
         </main>
     );
 };

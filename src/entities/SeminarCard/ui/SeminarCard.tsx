@@ -3,6 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import {SeminarType} from "../../SeminarList/api/types.ts";
+import {DelButton} from "../../../features/DelButton/ui/DelButton.tsx";
 
 interface SeminarCardProps {
     item: SeminarType;
@@ -30,6 +31,7 @@ export const SeminarCard = ({item}: SeminarCardProps) => {
                 <Typography variant="body2" color="text.secondary">
                     Время: {item.time}
                 </Typography>
+                <DelButton/>
             </CardContent>
         </Card>
     );
